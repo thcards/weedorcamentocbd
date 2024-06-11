@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orçamento de CBD</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Orçamento de CBD</h1>
+        <form id="cbdForm">
+            <label for="dropsPerDay">Gotas por dia:</label>
+            <input type="number" id="dropsPerDay" required>
+            <label for="bottleSize">Tamanho do frasco (ml):</label>
+            <input type="number" id="bottleSize" required>
+            <label for="concentration">Concentração (mg/ml):</label>
+            <input type="number" id="concentration" required>
+            <label for="cost">Custo (R$):</label>
+            <input type="number" id="cost" required>
+            <button type="button" onclick="calculateBudget()">Calcular</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateBudget() {
+            const dropsPerDay = parseFloat(document.getElementById('dropsPerDay').value);
+            const bottleSize = parseFloat(document.getElementById('bottleSize').value);
+            const concentration = parseFloat(document.getElementById('concentration').value);
+            const cost = parseFloat(document.getElementById('cost').value);
+
+            const totalCBD = (bottleSize * concentration); // mg por frasco
+            const days = Math.floor(bottleSize * 40 / dropsPerDay);
+            const monthlyCost = (cost / days) * 30;
+
+            const resultElement = document.getElementById('result');
+            resultElement.innerHTML = `
+                <p>Considerando a posologia que o seu médico indicou, este frasco duraria na faixa de ${days} dias.</p>
+                <p>O seu tratamento tem um custo mensal previsto de aproximadamente R$ ${monthlyCost.toFixed(2)}, sem considerar a taxa de importação.</p>
+                <p>Quantidade de CBD no frasco: ${totalCBD.toFixed(2)}.</p>
+            `;
+        }
+    </script>
+</body>
+</html>
